@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "target": "ES2018",
     "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "lib",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2020",
-    "sourceMap": true,
-    "outDir": "./lib",
-    "baseUrl": "./",
-    "incremental": true
+    "strictPropertyInitialization": false
   },
-  "exclude": ["node_modules", "lib", "tests"]
+  "include": ["src/**/*", "node_modules/@types/**/*"],
+  "exclude": ["node_modules", "lib", "**/*.spec.ts"]
 }

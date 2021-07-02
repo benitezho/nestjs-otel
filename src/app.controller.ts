@@ -1,5 +1,4 @@
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Post, UploadedFile } from '@nestjs/common';
 import { context, trace } from '@opentelemetry/api';
 import { AppService } from './app.service';
 
@@ -7,9 +6,10 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  // @UseInterceptors(FileInterceptor('field'))
-  getHello(): string {
+  @Post('/start')
+  getHello(
+    @UploadedFile('file') file: any,
+  ): string {
     console.log('Should log active span');
     const span = trace.getSpan(context.active());
     console.dir(span);

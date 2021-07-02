@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import {MiddlewareConsumer, Module, NestModule, RequestMethod} from '@nestjs/common';
+import multer from 'multer';
 import {
   BatchSpanProcessor,
   ConsoleSpanExporter,
@@ -22,5 +23,14 @@ import { OpenTelemetryModule } from './opentelemetry.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
+export class AppModule implements NestModule {
+  private multer = multer({
+    storage: multer.memoryStorage(),
+  });
+
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(this.multer.single('file'))
+      .forRoutes({ method: RequestMethod.POST, path: 'start' });
+  }
 }
